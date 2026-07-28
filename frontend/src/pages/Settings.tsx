@@ -263,7 +263,7 @@ function UserSettings() {
 export function SettingsPage() {
   return (
     <div className="space-y-4">
-      <h1 className="text-lg font-semibold text-ink">Settings</h1>
+      <h1 className="heading text-xl text-ink">Settings</h1>
       <StageSettings />
       <UserSettings />
     </div>

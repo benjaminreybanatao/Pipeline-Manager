@@ -24,7 +24,7 @@ function Column({
       aria-label={stage.name}
       className={cx(
         'flex w-72 shrink-0 flex-col rounded-lg border bg-surface-2/60 transition',
-        isOver ? 'border-series-1' : 'border-edge',
+        isOver ? 'border-brand' : 'border-edge',
         isTarget && !isOver && 'border-dashed',
       )}
     >

@@ -20,6 +20,36 @@ happened rather than where a deal happens to sit today.
 
 Stack: React + TypeScript (Vite) · FastAPI + SQLAlchemy 2 · PostgreSQL.
 
+## Design system
+
+Colors and typography follow DivcoWest's brand guideline. The literal PMS
+values are split by role rather than reused everywhere as-is:
+
+- **Green `#6AA442`** (7737 C) is the brand mark's exact color — used only in
+  the logo (`src/components/BrandMark.tsx`). White text on it only clears
+  3.0:1 contrast, short of the 4.5:1 normal text needs, so interactive UI
+  (buttons, links, active states, `--good`) uses a deepened step, `#4C7A2A`
+  (5.1:1), instead.
+- **Cool Gray 11 `#54565B`** is the primary ink (7.3:1 on white) — the
+  guideline's own "use for headlines and subheads."
+- **Navy `#172852`, Blue `#0076AA`, Cool Gray 7 `#979899`, Gold `#EBA900`**
+  (the guideline's "use for charts and graphs" set) are stepped per chart role:
+  Blue + a deepened gold (`#C98500`) pair for two-series charts (validated with
+  the dataviz skill's palette checker — literal `#EBA900` alone is too light
+  for a categorical mark, 2.06:1); literal Navy reads as near-black/near-gray
+  at that value (fails the categorical chroma floor) so it's reserved for
+  single-hue bar charts (property type / market breakdowns) rather than paired
+  with another series.
+- **Gandhi Serif / Gandhi Sans** aren't licensed as web fonts — PT Serif and
+  Nunito Sans are the closest open substitutes, applied per the guideline's
+  own pattern: sans bold caps for headlines (`.heading` in `index.css`), serif
+  italic for callouts/subtitles (`.callout`).
+
+Per-stage kanban colors stay user-configurable (Settings → stage color picker)
+rather than constrained to the brand palette — they're tenant data, not a
+fixed design token, since a pipeline may have anywhere from 3 to a dozen
+stages.
+
 ## Quick start
 
 ```bash
