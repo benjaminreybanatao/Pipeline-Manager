@@ -14,19 +14,25 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 30_000, refetchOnWindowFocus: false } },
 })
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <AppShell />,
-    children: [
-      { index: true, element: <PipelinePage /> },
-      { path: 'deals', element: <DealsPage /> },
-      { path: 'deals/:dealId', element: <DealDetailPage /> },
-      { path: 'dashboard', element: <DashboardPage /> },
-      { path: 'settings', element: <SettingsPage /> },
-    ],
-  },
-])
+// Pages serves the app from /<repo>/, so the router needs that prefix.
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '')
+
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <AppShell />,
+      children: [
+        { index: true, element: <PipelinePage /> },
+        { path: 'deals', element: <DealsPage /> },
+        { path: 'deals/:dealId', element: <DealDetailPage /> },
+        { path: 'dashboard', element: <DashboardPage /> },
+        { path: 'settings', element: <SettingsPage /> },
+      ],
+    },
+  ],
+  { basename: basename || '/' },
+)
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

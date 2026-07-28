@@ -49,6 +49,41 @@ history bookkeeping, terminal-stage side effects, deal filtering and sorting,
 activity auto-logging, and every dashboard aggregation asserted against
 hand-computed numbers.
 
+## Live demo build
+
+`make demo` produces a **server-free build** of the frontend in `frontend/dist`:
+the same app, but requests are answered by an in-browser store
+(`frontend/src/demo/store.ts`) working off a snapshot of the seeded pipeline
+instead of the API. Dragging deals, filtering, adding tasks and every dashboard
+figure all work with nothing running behind them, and edits persist to
+localStorage until you hit "Reset demo data".
+
+It is a build target, not a mode of the real app — `import.meta.env.VITE_DEMO`
+is a compile-time constant, so the normal build drops the branch and never
+bundles the fixture.
+
+Two details worth knowing:
+
+- The fixture records when it was generated, and the store slides every date
+  forward by however long ago that was. The board never looks stale: aging
+  badges, "closing this quarter" and overdue tasks stay meaningful whenever
+  someone opens it.
+- Derived values are **recomputed**, not exported. The snapshot holds raw
+  columns only, so weighted value, stage aging, conversion and the dashboard
+  are calculated in the browser the same way `app/services/metrics.py`
+  calculates them server-side.
+
+Refresh the fixture after changing the seed:
+
+```bash
+make reseed && make demo-seed
+```
+
+`.github/workflows/pages.yml` builds and publishes this on every push to `main`
+— set Settings → Pages → Source to "GitHub Actions" to enable it. The build
+also writes `404.html`, since Pages has no SPA rewrite and deep links would
+otherwise dead-end.
+
 ## How it is put together
 
 ```
@@ -61,8 +96,10 @@ backend/
     metrics.py         dashboard aggregations, kept out of the routers so they
                        can be unit-tested directly
   seed.py              demo pipeline
+  export_demo.py       snapshots the database into the demo fixture
 frontend/
   src/api/             fetch client + React Query hooks
+  src/demo/            the server-free demo backend + its fixture
   src/components/      shared UI, kanban, charts, deal tabs
   src/pages/           Pipeline · Deals · DealDetail · Dashboard · Settings
 ```

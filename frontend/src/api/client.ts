@@ -2,6 +2,13 @@ import { getCurrentUserId } from '../store/currentUser'
 
 const BASE = '/api'
 
+/**
+ * The demo build (`npm run build:demo`) has no server behind it, so requests are
+ * answered by an in-browser store instead. This is a compile-time constant, so
+ * the normal build drops the branch and never bundles the demo fixture.
+ */
+export const IS_DEMO = import.meta.env.VITE_DEMO === 'true'
+
 export class ApiError extends Error {
   status: number
 
@@ -27,11 +34,33 @@ function toQuery(params?: Record<string, unknown>): string {
   return qs ? `?${qs}` : ''
 }
 
+async function demoRequest<T>(
+  method: string,
+  path: string,
+  options: { body?: unknown; params?: Record<string, unknown> },
+): Promise<T> {
+  const { handle } = await import('../demo/store')
+  try {
+    return handle(
+      method,
+      path,
+      options.params ?? {},
+      (options.body ?? {}) as Record<string, unknown>,
+      getCurrentUserId(),
+    ) as T
+  } catch (error) {
+    const status = (error as { status?: number }).status ?? 500
+    throw new ApiError((error as Error).message, status)
+  }
+}
+
 async function request<T>(
   method: string,
   path: string,
   options: { body?: unknown; params?: Record<string, unknown> } = {},
 ): Promise<T> {
+  if (IS_DEMO) return demoRequest<T>(method, path, options)
+
   const userId = getCurrentUserId()
   const response = await fetch(`${BASE}${path}${toQuery(options.params)}`, {
     method,

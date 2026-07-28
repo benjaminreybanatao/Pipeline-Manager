@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useUsers } from '../api/hooks'
 import { setCurrentUserId, useCurrentUserId } from '../store/currentUser'
 import { setTheme, useTheme, type Theme } from '../store/theme'
+import { DemoBanner } from './DemoBanner'
 import { Select, cx } from './ui'
 
 const NAV = [
@@ -26,6 +27,7 @@ export function AppShell() {
 
   return (
     <div className="flex min-h-full flex-col">
+      <DemoBanner />
       <header className="sticky top-0 z-40 border-b border-edge bg-surface">
         <div className="mx-auto flex max-w-[1600px] flex-wrap items-center gap-x-6 gap-y-2 px-4 py-2.5">
           <span className="text-sm font-semibold tracking-tight text-ink">Pipeline Manager</span>

@@ -1,4 +1,4 @@
-.PHONY: help up down install migrate seed reseed api web test build lint
+.PHONY: help up down install migrate seed reseed api web test build demo demo-seed lint
 
 PY := backend/.venv/bin/python
 PIP := backend/.venv/bin/pip
@@ -38,3 +38,9 @@ test: ## run the backend test suite
 
 build: ## typecheck and build the frontend
 	cd frontend && npm run build
+
+demo: ## build the server-free demo (frontend/dist, deployable to GitHub Pages)
+	cd frontend && npm run build:demo
+
+demo-seed: ## refresh the demo fixture from the current database
+	cd backend && .venv/bin/python export_demo.py
