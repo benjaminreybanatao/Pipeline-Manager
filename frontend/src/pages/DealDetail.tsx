@@ -142,7 +142,7 @@ export function DealDetailPage() {
             className={cx(
               '-mb-px border-b-2 px-3 py-2 text-sm font-medium transition',
               tab === name
-                ? 'border-series-1 text-ink'
+                ? 'border-brand text-ink'
                 : 'border-transparent text-ink-2 hover:text-ink',
             )}
           >

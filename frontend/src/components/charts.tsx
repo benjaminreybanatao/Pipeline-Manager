@@ -40,8 +40,8 @@ export function ChartCard({
 }) {
   return (
     <Card className="p-4">
-      <h2 className="text-sm font-semibold text-ink">{title}</h2>
-      {subtitle && <p className="mt-0.5 text-xs text-ink-2">{subtitle}</p>}
+      <h2 className="heading text-xs text-ink">{title}</h2>
+      {subtitle && <p className="callout mt-0.5 text-xs text-ink-2">{subtitle}</p>}
       <div style={{ height }} className="mt-3">
         <ResponsiveContainer width="100%" height="100%">
           {children as React.ReactElement}
@@ -308,7 +308,7 @@ export function BreakdownChart({
         <Bar
           dataKey="value"
           name="Pipeline value"
-          fill="var(--series-1)"
+          fill="var(--series-3)"
           radius={BAR_RADIUS_X}
           barSize={16}
           isAnimationActive={false}

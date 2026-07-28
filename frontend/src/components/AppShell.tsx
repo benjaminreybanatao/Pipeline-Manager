@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useUsers } from '../api/hooks'
 import { setCurrentUserId, useCurrentUserId } from '../store/currentUser'
 import { setTheme, useTheme, type Theme } from '../store/theme'
+import { BrandMark } from './BrandMark'
 import { DemoBanner } from './DemoBanner'
 import { Select, cx } from './ui'
 
@@ -30,7 +31,10 @@ export function AppShell() {
       <DemoBanner />
       <header className="sticky top-0 z-40 border-b border-edge bg-surface">
         <div className="mx-auto flex max-w-[1600px] flex-wrap items-center gap-x-6 gap-y-2 px-4 py-2.5">
-          <span className="text-sm font-semibold tracking-tight text-ink">Pipeline Manager</span>
+          <div className="flex items-center gap-2.5">
+            <BrandMark className="h-5 w-auto shrink-0" />
+            <span className="callout hidden text-xs text-muted sm:inline">Pipeline Manager</span>
+          </div>
           <nav className="flex items-center gap-1">
             {NAV.map((item) => (
               <NavLink
@@ -39,8 +43,10 @@ export function AppShell() {
                 end={item.end}
                 className={({ isActive }) =>
                   cx(
-                    'rounded-md px-2.5 py-1.5 text-sm font-medium transition',
-                    isActive ? 'bg-surface-2 text-ink' : 'text-ink-2 hover:bg-surface-2',
+                    'rounded-md border-b-2 px-2.5 py-1.5 text-sm font-medium transition',
+                    isActive
+                      ? 'border-brand text-ink'
+                      : 'border-transparent text-ink-2 hover:bg-surface-2',
                   )
                 }
               >

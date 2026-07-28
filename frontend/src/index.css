@@ -1,24 +1,36 @@
 @import 'tailwindcss';
 
-/* Palette roles. Dark is a selected set of steps for the dark surface, not an
-   inversion of the light one. Components are written against these roles, so
-   switching themes touches nothing else. */
+/* DivcoWest brand palette (from DW_Brand_Guidelines.pdf).
+   Primary: 7737 C green #6AA442 + Cool Gray 11 #54565B — "for headlines and
+     subheads." Secondary: 655 C navy #172852, 7690 C blue #0076AA, Cool Gray 7
+     #979899, 124 gold #EBA900 — "for charts and graphs."
+   Interactive UI (buttons, links, focus, --good) uses a deepened step of the
+   brand green rather than the literal PMS value: white text on the exact
+   #6AA442 only clears 3.0:1, short of the 4.5:1 normal text needs, so --brand
+   is stepped to #4C7A2A (5.1:1) — the literal PMS green is kept only in the
+   logo mark, where an exact brand color is expected regardless of contrast
+   math. Chart series are stepped per mode and validated with the dataviz
+   skill's palette checker; literal Navy reads as near-black/near-gray (fails
+   the categorical chroma floor) so it's reserved for single-hue bar contexts
+   and stepped brighter for dark mode, never paired with another series. */
 :root {
   color-scheme: light;
-  --page-plane: #f9f9f7;
-  --surface-1: #fcfcfb;
-  --surface-2: #f2f1ec;
-  --text-primary: #0b0b0b;
-  --text-secondary: #52514e;
-  --text-muted: #898781;
-  --gridline: #e1e0d9;
-  --baseline: #c3c2b7;
-  --edge: rgba(11, 11, 11, 0.1);
-  --series-1: #2a78d6;
-  --series-2: #eb6834;
-  --series-3: #1baf7a;
-  --good: #0ca30c;
-  --warning: #fab219;
+  --page-plane: #f7f7f8;
+  --surface-1: #ffffff;
+  --surface-2: #eef0f1;
+  --text-primary: #54565b;
+  --text-secondary: #77787d;
+  --text-muted: #979899;
+  --gridline: #e7e7e8;
+  --baseline: #c8c9ca;
+  --edge: rgba(38, 40, 43, 0.12);
+  --brand: #4c7a2a;
+  --brand-hover: #3e661f;
+  --series-1: #0076aa;
+  --series-2: #c98500;
+  --series-3: #172852;
+  --good: #4c7a2a;
+  --warning: #9c6900;
   --serious: #ec835a;
   --critical: #d03b3b;
 }
@@ -26,35 +38,47 @@
 @media (prefers-color-scheme: dark) {
   :root:where(:not([data-theme='light'])) {
     color-scheme: dark;
-    --page-plane: #0d0d0d;
-    --surface-1: #1a1a19;
-    --surface-2: #232322;
-    --text-primary: #ffffff;
-    --text-secondary: #c3c2b7;
-    --text-muted: #898781;
-    --gridline: #2c2c2a;
-    --baseline: #383835;
-    --edge: rgba(255, 255, 255, 0.1);
-    --series-1: #3987e5;
-    --series-2: #d95926;
-    --series-3: #199e70;
+    --page-plane: #10131f;
+    --surface-1: #171b2b;
+    --surface-2: #202538;
+    --text-primary: #f2f3f4;
+    --text-secondary: #c7c8cb;
+    --text-muted: #93959c;
+    --gridline: #2b2f42;
+    --baseline: #3c4054;
+    --edge: rgba(255, 255, 255, 0.12);
+    --brand: #4c7a2a;
+    --brand-hover: #5a9038;
+    --series-1: #2e9bd6;
+    --series-2: #b87d00;
+    --series-3: #5a76ac;
+    --good: #4c7a2a;
+    --warning: #9c6900;
+    --serious: #ec835a;
+    --critical: #d03b3b;
   }
 }
 
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --page-plane: #0d0d0d;
-  --surface-1: #1a1a19;
-  --surface-2: #232322;
-  --text-primary: #ffffff;
-  --text-secondary: #c3c2b7;
-  --text-muted: #898781;
-  --gridline: #2c2c2a;
-  --baseline: #383835;
-  --edge: rgba(255, 255, 255, 0.1);
-  --series-1: #3987e5;
-  --series-2: #d95926;
-  --series-3: #199e70;
+  --page-plane: #10131f;
+  --surface-1: #171b2b;
+  --surface-2: #202538;
+  --text-primary: #f2f3f4;
+  --text-secondary: #c7c8cb;
+  --text-muted: #93959c;
+  --gridline: #2b2f42;
+  --baseline: #3c4054;
+  --edge: rgba(255, 255, 255, 0.12);
+  --brand: #4c7a2a;
+  --brand-hover: #5a9038;
+  --series-1: #2e9bd6;
+  --series-2: #b87d00;
+  --series-3: #5a76ac;
+  --good: #4c7a2a;
+  --warning: #9c6900;
+  --serious: #ec835a;
+  --critical: #d03b3b;
 }
 
 @theme inline {
@@ -67,13 +91,17 @@
   --color-line: var(--gridline);
   --color-baseline: var(--baseline);
   --color-edge: var(--edge);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
   --color-series-1: var(--series-1);
   --color-series-2: var(--series-2);
+  --color-series-3: var(--series-3);
   --color-good: var(--good);
   --color-warning: var(--warning);
   --color-serious: var(--serious);
   --color-critical: var(--critical);
-  --font-sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans: 'Nunito Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'PT Serif', Georgia, 'Times New Roman', serif;
 }
 
 html,
@@ -85,10 +113,26 @@ body,
 body {
   background: var(--page-plane);
   color: var(--text-primary);
-  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-family: var(--font-sans);
 }
 
 /* Columns of figures line up; standalone numbers keep proportional figures. */
 .tabular {
   font-variant-numeric: tabular-nums;
+}
+
+/* "GANDHI SANS BOLD CALL CAPS...used mainly for headlines" — page and card
+   titles across the app share this treatment via the `.heading` utility. */
+.heading {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* "Gandhi serif italics is used mainly for callouts" — subtitles, chart
+   captions and empty states share this treatment via `.callout`. */
+.callout {
+  font-family: var(--font-serif);
+  font-style: italic;
 }

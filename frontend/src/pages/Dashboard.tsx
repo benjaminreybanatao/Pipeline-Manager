@@ -50,7 +50,7 @@ function StalledDeals() {
   return (
     <Card className="p-4">
       <h2 className="text-sm font-semibold text-ink">Stalled deals</h2>
-      <p className="mt-0.5 text-xs text-ink-2">
+      <p className="callout mt-0.5 text-xs text-ink-2">
         No stage movement in {STAGE_STALE_DAYS}+ days
       </p>
       {stalled.length === 0 ? (
@@ -100,7 +100,7 @@ function OverdueTasks() {
   return (
     <Card className="p-4">
       <h2 className="text-sm font-semibold text-ink">Overdue tasks</h2>
-      <p className="mt-0.5 text-xs text-ink-2">Past their due date and not done</p>
+      <p className="callout mt-0.5 text-xs text-ink-2">Past their due date and not done</p>
       {!tasks?.length ? (
         <EmptyState>Nothing overdue.</EmptyState>
       ) : (
@@ -220,8 +220,8 @@ export function DashboardPage() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-lg font-semibold text-ink">Dashboard</h1>
-        <p className="text-sm text-ink-2">Where the pipeline stands as of {day(new Date().toISOString())}</p>
+        <h1 className="heading text-xl text-ink">Dashboard</h1>
+        <p className="callout text-sm text-ink-2">Where the pipeline stands as of {day(new Date().toISOString())}</p>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6">

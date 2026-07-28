@@ -22,7 +22,7 @@ export function PipelinePage() {
     <div className="space-y-4">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <div>
-          <h1 className="text-lg font-semibold text-ink">Pipeline</h1>
+          <h1 className="heading text-xl text-ink">Pipeline</h1>
           <p className="tabular text-sm text-ink-2">
             {deals.length} deals · {money(totalValue)} total · {money(weighted)} weighted
           </p>

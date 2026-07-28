@@ -13,7 +13,7 @@ export function Card({ children, className }: { children: ReactNode; className?:
 }
 
 const buttonVariants = {
-  primary: 'bg-series-1 text-white hover:opacity-90',
+  primary: 'bg-brand text-white hover:bg-brand-hover',
   secondary: 'border border-edge bg-surface text-ink hover:bg-surface-2',
   ghost: 'text-ink-2 hover:bg-surface-2',
   danger: 'border border-edge text-critical hover:bg-surface-2',
@@ -41,7 +41,7 @@ export function Button({
 // No width here on purpose: call sites set their own, and a `w-full` baked in
 // would win over them regardless of class order.
 const fieldClass =
-  'rounded-md border border-edge bg-surface px-2.5 py-1.5 text-sm text-ink placeholder:text-muted focus:border-series-1 focus:outline-none'
+  'rounded-md border border-edge bg-surface px-2.5 py-1.5 text-sm text-ink placeholder:text-muted focus:border-brand focus:outline-none'
 
 export function Input({ className, ...props }: InputHTMLAttributes<HTMLInputElement>) {
   return <input className={cx(fieldClass, className)} {...props} />
@@ -121,7 +121,7 @@ export function Avatar({ name, title }: { name: string; title?: string }) {
 }
 
 export function EmptyState({ children }: { children: ReactNode }) {
-  return <p className="px-1 py-6 text-center text-sm text-muted">{children}</p>
+  return <p className="callout px-1 py-6 text-center text-sm text-muted">{children}</p>
 }
 
 export function Spinner({ label = 'Loading…' }: { label?: string }) {
